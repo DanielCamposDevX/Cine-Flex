@@ -1,43 +1,54 @@
 import styled from "styled-components"
 import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
-export default function SessionsPage() {
+export default function SessionsPage(props) {
+
+    const [session, setSession] = useState([]);
+
+    useEffect(() => {
+        if (props.selectedid) {
+            const promisse = axios.get('https://mock-api.driven.com.br/api/v8/cineflex/movies/' + props.selectedid + '/showtimes');
+            promisse.then((resposta) => {
+                setSession(resposta.data);
+                console.log(resposta);
+            })
+                .catch(() => {
+                    console.log('Deu Ruim');
+                });
+        }
+    }, [props.selectedid]);
+
+    function handleClick(id) {
+        props.setSession(id);
+    }
 
     return (
         <PageContainer>
             Selecione o horário
             <div>
-                <SessionContainer>
-                    Sexta - 03/03/2023
-                    <ButtonsContainer>
-                        <button>14:00</button>
-                        <button>15:00</button>
-                    </ButtonsContainer>
-                </SessionContainer>
-
-                <SessionContainer>
-                    Sexta - 03/03/2023
-                    <ButtonsContainer>
-                        <button>14:00</button>
-                        <button>15:00</button>
-                    </ButtonsContainer>
-                </SessionContainer>
-
-                <SessionContainer>
-                    Sexta - 03/03/2023
-                    <ButtonsContainer>
-                        <button>14:00</button>
-                        <button>15:00</button>
-                    </ButtonsContainer>
-                </SessionContainer>
+                {session.days && session.days.map((session) => (
+                    <SessionContainer key={session.id}>
+                        {session.weekday} - {session.date}
+                        <ButtonsContainer>
+                            {session.showtimes.map((sessiones) =>
+                            (<Link to="/Seats" key={sessiones.id}>
+                                <button onClick={handleClick(sessiones.id)} >
+                                    {sessiones.name}
+                                </button>
+                            </Link>))}
+                        </ButtonsContainer>
+                    </SessionContainer>
+                ))}
             </div>
 
             <FooterContainer>
                 <div>
-                    <img src={"https://br.web.img2.acsta.net/pictures/22/05/16/17/59/5165498.jpg"} alt="poster" />
+                    <img src={session.posterURL} alt="poster" />
                 </div>
                 <div>
-                    <p>Tudo em todo lugar ao mesmo tempo</p>
+                    <p>{session.title}</p>
                 </div>
             </FooterContainer>
 

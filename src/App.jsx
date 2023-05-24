@@ -9,6 +9,7 @@ import React from "react"
 
 export default function App() {
    const[selectedid,setSelectedid] = React.useState();
+   const[session,setSession] = React.useState();
    
 
 
@@ -20,10 +21,10 @@ export default function App() {
             <NavContainer>CINEFLEX</NavContainer>
             
             <Routes>
-                <Route path="/" element={<HomePage selected={selectedid} setSelected={setSelectedid}/>}/>
-                <Route path="/Seats" element={<SeatsPage selected={selectedid} setSelected={setSelectedid}/>}/>
-                <Route path="/Sessions" element={<SessionsPage selected={selectedid} setSelected={setSelectedid}/>}/>
-                <Route path="/Sucess" element={<SuccessPage selected={selectedid} setSelected={setSelectedid}/>}/>
+                <Route path="/" element={<HomePage selectedid={selectedid} setSelectedid={setSelectedid}/>}/>
+                <Route path="/Seats" element={<SeatsPage selectedid={selectedid} setSelectedid={setSelectedid}/>}/>
+                <Route path="/Sessions" element={<SessionsPage selectedid={selectedid} setSelectedid={setSelectedid} setSession={setSession}/>}/>
+                <Route path="/Sucess" element={<SuccessPage selectedid={selectedid} setSelectedid={setSelectedid}/>}/>
             </Routes>
         </BrowserRouter>
     )

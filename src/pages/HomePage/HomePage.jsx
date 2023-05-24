@@ -7,7 +7,7 @@ export default function HomePage(props) {
     const [movies, setMovies] = React.useState([]);
 
     function handleClick(id) {
-        props.setSelected(id)
+        props.setSelectedid(id)
         console.log(id);
     }
 
@@ -25,8 +25,8 @@ export default function HomePage(props) {
             Selecione o filme
             <ListContainer>
                 {movies.map((movies) => (
-                    <Link to="/Sessions">
-                        <MovieContainer key={movies.id} onClick={() => handleClick(movies.id)}>
+                    <Link key={movies.id} to="/Sessions">
+                        <MovieContainer  onClick={() => handleClick(movies.id)}>
                             <img src={movies.posterURL} alt="poster" />
                         </MovieContainer>
                     </Link>
