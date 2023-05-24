@@ -1,12 +1,18 @@
 import { useState, useEffect } from "react";
 import styled from "styled-components"
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 export default function SeatsPage(props) {
     function handleClick(id) {
         const newClicked = [...clicked, id];
         setClicked(newClicked);
         console.log(newClicked);
+    }
+
+    function send() {
+        console.log(props.name);
+        console.log(props.cpf);
     }
 
 
@@ -25,6 +31,7 @@ export default function SeatsPage(props) {
                 });
         }
     }, [props.sessiona]);
+
 
     return (
         <PageContainer>
@@ -63,23 +70,28 @@ export default function SeatsPage(props) {
 
             <FormContainer>
                 Nome do Comprador:
-                <input placeholder="Digite seu nome..." />
+                <input placeholder="Digite seu nome..." value={props.name} onChange={event => props.setName(event.target.value)} />
 
                 CPF do Comprador:
-                <input placeholder="Digite seu CPF..." />
+                <input placeholder="Digite seu CPF..." value={props.cpf} onChange={event => props.setCpf(event.target.value)} />
+                <Link to="/Sucess"><button onClick={() => send()}>Reservar Assento(s)</button></Link>
 
-                <button>Reservar Assento(s)</button>
             </FormContainer>
 
             <FooterContainer>
-                <div>
-                    <img src={seat.movie.posterURL} alt="poster" />
-                </div>
-                <div>
-                    <p>{seat.movie.title}</p>
-                    <p>{seat.day.weekday} - {seat.name}</p>
-                </div>
+                {seat && seat.movie && (
+                    <>
+                        <div>
+                            <img src={seat.movie.posterURL} alt="poster" />
+                        </div>
+                        <div>
+                            <p>{seat.movie.title}</p>
+                            <p>{seat.day.weekday} - {seat.name}</p>
+                        </div>
+                    </>
+                )}
             </FooterContainer>
+
 
         </PageContainer>
     )

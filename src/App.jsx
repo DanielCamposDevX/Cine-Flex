@@ -5,12 +5,13 @@ import SessionsPage from "./pages/SessionsPage/SessionsPage"
 import SuccessPage from "./pages/SuccessPage/SuccessPage"
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import axios from "axios";
-import React from "react"
+import React, { useState } from "react"
 
 export default function App() {
-   const[selectedid,setSelectedid] = React.useState();
-   const[sessiona,setSessiona] = React.useState();
-   
+   const[selectedid,setSelectedid] = useState();
+   const[sessiona,setSessiona] = useState();
+   const[name,setName] = useState();
+   const[cpf,setCpf] = useState();
 
 
 
@@ -22,7 +23,7 @@ export default function App() {
             
             <Routes>
                 <Route path="/" element={<HomePage selectedid={selectedid} setSelectedid={setSelectedid}/>}/>
-                <Route path="/Seats" element={<SeatsPage selectedid={selectedid} setSelectedid={setSelectedid} sessiona={sessiona}/>}/>
+                <Route path="/Seats" element={<SeatsPage selectedid={selectedid} setSelectedid={setSelectedid} sessiona={sessiona} setName={setName} name={name} cpf={cpf} setCpf={setCpf}/>}/>
                 <Route path="/Sessions" element={<SessionsPage selectedid={selectedid} setSelectedid={setSelectedid} setSessiona={setSessiona}/>}/>
                 <Route path="/Sucess" element={<SuccessPage selectedid={selectedid} setSelectedid={setSelectedid} sessiona={sessiona}/>}/>
             </Routes>
