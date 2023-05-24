@@ -4,7 +4,6 @@ import SeatsPage from "./pages/SeatsPage/SeatsPage"
 import SessionsPage from "./pages/SessionsPage/SessionsPage"
 import SuccessPage from "./pages/SuccessPage/SuccessPage"
 import { BrowserRouter, Routes, Route, useParams } from "react-router-dom";
-import axios from "axios";
 import React, { useState } from "react"
 
 export default function App() {
@@ -23,7 +22,6 @@ export default function App() {
     return (
         <BrowserRouter>
             <NavContainer>CINEFLEX</NavContainer>
-
             <Routes>
                 <Route path="/" element={<HomePage selectedid={selectedid} setSelectedid={setSelectedid} />} />
                 <Route path="/assentos/:idSessao" element={<SeatsPage setSelectedid={setSelectedid} selectedid={selectedid} sessiona={sessiona} setClicked={setClicked} clicked={clicked} setName={setName} name={name} setCpf={setCpf} cpf={cpf} setSeats={setSeats} seats={seats} idSessao={idSessao} />} />

@@ -39,13 +39,13 @@ export default function SuccessPage(props) {
                 <PageContainer>
                     <h1>Pedido feito <br /> com sucesso!</h1>
 
-                    <TextContainer>
+                    <TextContainer data-test="movie-info">
                         <strong><p>Filme e sessão</p></strong>
                         <p>{data.movie.title}</p>
                         <p>{data.day.date} - {data.name}</p>
                     </TextContainer>
 
-                    <TextContainer>
+                    <TextContainer data-test="seats-info">
                         <strong><p>Ingressos</p></strong>
                         {props.clicked.map((seat, index) => (
                             <p key={index}>Assento {seat}</p>
@@ -53,13 +53,13 @@ export default function SuccessPage(props) {
                         ))}
                     </TextContainer>
 
-                    <TextContainer>
+                    <TextContainer data-test="client-info">
                         <strong><p>Comprador</p></strong>
                         <p>Nome: {props.name}</p>
                         <p>CPF: {props.cpf}</p>
                     </TextContainer>
 
-                    <Link to="/"><button onClick={() => handleClick()}>Voltar para Home</button></Link>
+                    <Link to="/" data-test="go-home-btn"><button onClick={() => handleClick()}>Voltar para Home</button></Link>
                 </PageContainer>) : null}
         </>)
 }

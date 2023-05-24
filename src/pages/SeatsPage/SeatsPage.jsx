@@ -62,7 +62,7 @@ export default function SeatsPage(props) {
                         <SeatItem
                             appearance={props.clicked.includes(seat.name) ? "green" : ""}
                             onClick={() => handleClick(seat.name,seat.id)}
-                            key={seat.id}
+                            key={seat.id} data-test="seat"
                         >
                             {seat.name}
                         </SeatItem>
@@ -89,11 +89,11 @@ export default function SeatsPage(props) {
 
             <FormContainer>
                 Nome do Comprador:
-                <input placeholder="Digite seu nome..." value={props.name} onChange={event => props.setName(event.target.value)} />
+                <input placeholder="Digite seu nome..." value={props.name} onChange={event => props.setName(event.target.value)} data-test="client-name"  />
 
                 CPF do Comprador:
-                <input placeholder="Digite seu CPF..." value={props.cpf} onChange={event => props.setCpf(event.target.value)} />
-                <Link to="/sucesso"><button onClick={() => send()}>Reservar Assento(s)</button></Link>
+                <input placeholder="Digite seu CPF..." value={props.cpf} onChange={event => props.setCpf(event.target.value)} data-test="client-cpf"/>
+                <Link to="/sucesso" data-test="book-seat-btn"><button onClick={() => send()}>Reservar Assento(s)</button></Link>
 
             </FormContainer>
 

@@ -24,8 +24,8 @@ export default function HomePage(props) {
             Selecione o filme
             <ListContainer>
                 {movies.map((movies) => (
-                    <Link key={movies.id} to={`/sessoes/${movies.id}`}>
-                        <MovieContainer onClick={() => handleClick(movies.id)}>
+                    <Link key={movies.id} to={`/sessoes/${movies.id}`}  data-test="movie">
+                        <MovieContainer onClick={() => handleClick(movies.id)} >
                             <img src={movies.posterURL} alt="poster" />
                         </MovieContainer>
                     </Link>
