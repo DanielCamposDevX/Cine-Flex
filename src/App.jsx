@@ -3,16 +3,19 @@ import HomePage from "./pages/HomePage/HomePage"
 import SeatsPage from "./pages/SeatsPage/SeatsPage"
 import SessionsPage from "./pages/SessionsPage/SessionsPage"
 import SuccessPage from "./pages/SuccessPage/SuccessPage"
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useParams } from "react-router-dom";
 import axios from "axios";
 import React, { useState } from "react"
 
 export default function App() {
-   const[selectedid,setSelectedid] = useState();
-   const[sessiona,setSessiona] = useState();
-   const[name,setName] = useState();
-   const[cpf,setCpf] = useState();
-
+    const [selectedid, setSelectedid] = useState();
+    const [sessiona, setSessiona] = useState();
+    const [seats, setSeats] = useState([]);
+    const [clicked, setClicked] = useState([]);
+    const [name, setName] = useState();
+    const [cpf, setCpf] = useState();
+    const { idSessao } = useParams();
+    const { idFilme } = useParams();
 
 
 
@@ -20,12 +23,12 @@ export default function App() {
     return (
         <BrowserRouter>
             <NavContainer>CINEFLEX</NavContainer>
-            
+
             <Routes>
-                <Route path="/" element={<HomePage selectedid={selectedid} setSelectedid={setSelectedid}/>}/>
-                <Route path="/Seats" element={<SeatsPage selectedid={selectedid} setSelectedid={setSelectedid} sessiona={sessiona} setName={setName} name={name} cpf={cpf} setCpf={setCpf}/>}/>
-                <Route path="/Sessions" element={<SessionsPage selectedid={selectedid} setSelectedid={setSelectedid} setSessiona={setSessiona}/>}/>
-                <Route path="/Sucess" element={<SuccessPage selectedid={selectedid} setSelectedid={setSelectedid} sessiona={sessiona}/>}/>
+                <Route path="/" element={<HomePage selectedid={selectedid} setSelectedid={setSelectedid} />} />
+                <Route path="/assentos/:idSessao" element={<SeatsPage setSelectedid={setSelectedid} selectedid={selectedid} sessiona={sessiona} setClicked={setClicked} clicked={clicked} setName={setName} name={name} setCpf={setCpf} cpf={cpf} setSeats={setSeats} seats={seats} idSessao={idSessao} />} />
+                <Route path="/sessoes/:idFilme" element={<SessionsPage setSelectedid={setSelectedid} selectedid={selectedid} setSessiona={setSessiona} idFilme={idFilme} />} />
+                <Route path="/sucesso" element={<SuccessPage setSelectedid={setSelectedid} selectedid={selectedid} setSessiona={setSessiona} sessiona={sessiona} setClicked={setClicked} clicked={clicked} setName={setName} name={name} setCpf={setCpf} cpf={cpf} setSeats={setSeats} seats={seats} />} />
             </Routes>
         </BrowserRouter>
     )
@@ -44,7 +47,7 @@ const NavContainer = styled.div`
                 position: fixed;
                 top: 0;
                 a {
-                    text - decoration: none;
+                    text-decoration: none;
                 color: #E8833A;
     }
                 `

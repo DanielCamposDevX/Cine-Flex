@@ -1,10 +1,9 @@
 import styled from "styled-components"
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link,useParams } from "react-router-dom";
 
 export default function SessionsPage(props) {
-
     const [session, setSession] = useState([]);
 
     useEffect(() => {
@@ -19,9 +18,12 @@ export default function SessionsPage(props) {
         }
     }, [props.selectedid]);
 
+    if (session.length === 0) {
+        return (<PageContainer>Carregando...</PageContainer>)
+    }
+
     function handleClick(id) {
         props.setSessiona(id);
-        console.log(id)
     }
 
     return (
@@ -33,7 +35,7 @@ export default function SessionsPage(props) {
                         {session.weekday} - {session.date}
                         <ButtonsContainer>
                             {session.showtimes.map((sessiones) =>
-                            (<Link to="/Seats" key={sessiones.id}>
+                            (<Link to={`/assentos/${sessiones.id}`} key={sessiones.id}>
                                 <button onClick={() => handleClick(sessiones.id)} >
                                     {sessiones.name}
                                 </button>

@@ -1,35 +1,67 @@
 import styled from "styled-components"
 import axios from "axios";
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+
+export default function SuccessPage(props) {
+
+    const [data, setData] = useState([]);
+
+    function handleClick() {
+    props.setSelectedid("");
+    props.setSessiona("");
+    props.setSeats("");
+    props.setClicked("");
+    props.setName("");
+    props.setCpf("");
+    }
 
 
-export default function SuccessPage() {
+    useEffect(() => {
+        if (props.sessiona) {
+            const promisse = axios.get('https://mock-api.driven.com.br/api/v8/cineflex/showtimes/' + props.sessiona + '/seats');
+            promisse.then((resposta) => {
+                setData(resposta.data);
+            })
+                .catch(() => {
+                    console.log('Deu Ruim');
+                });
+        }
+    }, [props.sessiona]);
+
+    if (data.length === 0) {
+        return (<PageContainer>Carregando...</PageContainer>)
+    }
 
     return (
-        <PageContainer>
-            <h1>Pedido feito <br /> com sucesso!</h1>
+        <>
+            {data.movie ? (
+                <PageContainer>
+                    <h1>Pedido feito <br /> com sucesso!</h1>
 
-            <TextContainer>
-                <strong><p>Filme e sessão</p></strong>
-                <p>Tudo em todo lugar ao mesmo tempo</p>
-                <p>03/03/2023 - 14:00</p>
-            </TextContainer>
+                    <TextContainer>
+                        <strong><p>Filme e sessão</p></strong>
+                        <p>{data.movie.title}</p>
+                        <p>{data.day.date} - {data.name}</p>
+                    </TextContainer>
 
-            <TextContainer>
-                <strong><p>Ingressos</p></strong>
-                <p>Assento 01</p>
-                <p>Assento 02</p>
-                <p>Assento 03</p>
-            </TextContainer>
+                    <TextContainer>
+                        <strong><p>Ingressos</p></strong>
+                        {props.clicked.map((seat, index) => (
+                            <p key={index}>Assento {seat}</p>
 
-            <TextContainer>
-                <strong><p>Comprador</p></strong>
-                <p>Nome: Letícia Chijo</p>
-                <p>CPF: 123.456.789-10</p>
-            </TextContainer>
+                        ))}
+                    </TextContainer>
 
-            <button>Voltar para Home</button>
-        </PageContainer>
-    )
+                    <TextContainer>
+                        <strong><p>Comprador</p></strong>
+                        <p>Nome: {props.name}</p>
+                        <p>CPF: {props.cpf}</p>
+                    </TextContainer>
+
+                    <Link to="/"><button onClick={() => handleClick()}>Voltar para Home</button></Link>
+                </PageContainer>) : null}
+        </>)
 }
 
 const PageContainer = styled.div`

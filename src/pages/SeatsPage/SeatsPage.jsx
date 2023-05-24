@@ -4,27 +4,43 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 
 export default function SeatsPage(props) {
-    function handleClick(id) {
-        const newClicked = [...clicked, id];
-        setClicked(newClicked);
-        console.log(newClicked);
-    }
 
     function send() {
-        console.log(props.name);
-        console.log(props.cpf);
+        const send = {
+            ids: props.seats,
+            name: props.name,
+            cpf: props.cpf
+        };
+       console.log(send);
+       const promisse = axios.post('https://mock-api.driven.com.br/api/v8/cineflex/seats/book-many',send);
+       promisse.then(() => {
+        console.log("deu bom");
+    })
+        .catch(() => {
+            console.log('Deu Ruim');
+        });
+       
     }
-
-
-    const [clicked, setClicked] = useState([]);
-    const [seat, setSeat] = useState();
+    
+    function handleClick(name,id) {
+        if(!props.clicked.includes(name)){
+        const newClicked = [...props.clicked, name];
+        props.setClicked(newClicked);}
+        else{console.log("já selecionada")}
+        
+        if(!props.seats.includes(id)){
+            const newSeats = [...props.seats, id];
+            props.setSeats(newSeats);}
+            else{console.log("já selecionada")}
+    }
+    
+    const [seat, setSeat] = useState([]);
 
     useEffect(() => {
         if (props.sessiona) {
             const promisse = axios.get('https://mock-api.driven.com.br/api/v8/cineflex/showtimes/' + props.sessiona + '/seats');
             promisse.then((resposta) => {
                 setSeat(resposta.data);
-                console.log(resposta);
             })
                 .catch(() => {
                     console.log('Deu Ruim');
@@ -32,6 +48,9 @@ export default function SeatsPage(props) {
         }
     }, [props.sessiona]);
 
+    if (seat.length === 0) {
+        return (<PageContainer>Carregando...</PageContainer>)
+    }
 
     return (
         <PageContainer>
@@ -41,8 +60,8 @@ export default function SeatsPage(props) {
                 {seat && seat.seats && seat.seats.map((seat) => (
                     seat.isAvailable ? (
                         <SeatItem
-                            appearance={clicked.includes(seat.id) ? "green" : ""}
-                            onClick={() => handleClick(seat.id)}
+                            appearance={props.clicked.includes(seat.name) ? "green" : ""}
+                            onClick={() => handleClick(seat.name,seat.id)}
                             key={seat.id}
                         >
                             {seat.name}
@@ -74,7 +93,7 @@ export default function SeatsPage(props) {
 
                 CPF do Comprador:
                 <input placeholder="Digite seu CPF..." value={props.cpf} onChange={event => props.setCpf(event.target.value)} />
-                <Link to="/Sucess"><button onClick={() => send()}>Reservar Assento(s)</button></Link>
+                <Link to="/sucesso"><button onClick={() => send()}>Reservar Assento(s)</button></Link>
 
             </FormContainer>
 
