@@ -12,7 +12,6 @@ export default function SessionsPage(props) {
             const promisse = axios.get('https://mock-api.driven.com.br/api/v8/cineflex/movies/' + props.selectedid + '/showtimes');
             promisse.then((resposta) => {
                 setSession(resposta.data);
-                console.log(resposta);
             })
                 .catch(() => {
                     console.log('Deu Ruim');
@@ -21,7 +20,8 @@ export default function SessionsPage(props) {
     }, [props.selectedid]);
 
     function handleClick(id) {
-        props.setSession(id);
+        props.setSessiona(id);
+        console.log(id)
     }
 
     return (
@@ -34,7 +34,7 @@ export default function SessionsPage(props) {
                         <ButtonsContainer>
                             {session.showtimes.map((sessiones) =>
                             (<Link to="/Seats" key={sessiones.id}>
-                                <button onClick={handleClick(sessiones.id)} >
+                                <button onClick={() => handleClick(sessiones.id)} >
                                     {sessiones.name}
                                 </button>
                             </Link>))}

@@ -8,7 +8,6 @@ export default function HomePage(props) {
 
     function handleClick(id) {
         props.setSelectedid(id)
-        console.log(id);
     }
 
     useEffect(() => {

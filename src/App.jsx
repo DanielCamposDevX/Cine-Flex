@@ -9,7 +9,7 @@ import React from "react"
 
 export default function App() {
    const[selectedid,setSelectedid] = React.useState();
-   const[session,setSession] = React.useState();
+   const[sessiona,setSessiona] = React.useState();
    
 
 
@@ -22,9 +22,9 @@ export default function App() {
             
             <Routes>
                 <Route path="/" element={<HomePage selectedid={selectedid} setSelectedid={setSelectedid}/>}/>
-                <Route path="/Seats" element={<SeatsPage selectedid={selectedid} setSelectedid={setSelectedid}/>}/>
-                <Route path="/Sessions" element={<SessionsPage selectedid={selectedid} setSelectedid={setSelectedid} setSession={setSession}/>}/>
-                <Route path="/Sucess" element={<SuccessPage selectedid={selectedid} setSelectedid={setSelectedid}/>}/>
+                <Route path="/Seats" element={<SeatsPage selectedid={selectedid} setSelectedid={setSelectedid} sessiona={sessiona}/>}/>
+                <Route path="/Sessions" element={<SessionsPage selectedid={selectedid} setSelectedid={setSelectedid} setSessiona={setSessiona}/>}/>
+                <Route path="/Sucess" element={<SuccessPage selectedid={selectedid} setSelectedid={setSelectedid} sessiona={sessiona}/>}/>
             </Routes>
         </BrowserRouter>
     )
