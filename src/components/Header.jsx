@@ -6,7 +6,7 @@ export default function Header() {
     const navigate = useNavigate();
 
     function handleClick() {
-        navigate("/");
+        navigate(-1);
     }
 
     return (
