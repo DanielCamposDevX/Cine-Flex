@@ -11,29 +11,31 @@ export default function SeatsPage(props) {
             name: props.name,
             cpf: props.cpf
         };
-       console.log(send);
-       const promisse = axios.post('https://mock-api.driven.com.br/api/v8/cineflex/seats/book-many',send);
-       promisse.then(() => {
-        console.log("deu bom");
-    })
-        .catch(() => {
-            console.log('Deu Ruim');
-        });
-       
+        console.log(send);
+        const promisse = axios.post('https://mock-api.driven.com.br/api/v8/cineflex/seats/book-many', send);
+        promisse.then(() => {
+            console.log("deu bom");
+        })
+            .catch(() => {
+                console.log('Deu Ruim');
+            });
+
     }
-    
-    function handleClick(name,id) {
-        if(!props.clicked.includes(name)){
-        const newClicked = [...props.clicked, name];
-        props.setClicked(newClicked);}
-        else{console.log("já selecionada")}
-        
-        if(!props.seats.includes(id)){
+
+    function handleClick(name, id) {
+        if (!props.clicked.includes(name)) {
+            const newClicked = [...props.clicked, name];
+            props.setClicked(newClicked);
+        }
+        else { console.log("já selecionada") }
+
+        if (!props.seats.includes(id)) {
             const newSeats = [...props.seats, id];
-            props.setSeats(newSeats);}
-            else{console.log("já selecionada")}
+            props.setSeats(newSeats);
+        }
+        else { console.log("já selecionada") }
     }
-    
+
     const [seat, setSeat] = useState([]);
 
     useEffect(() => {
@@ -61,7 +63,7 @@ export default function SeatsPage(props) {
                     seat.isAvailable ? (
                         <SeatItem
                             appearance={props.clicked.includes(seat.name) ? "green" : ""}
-                            onClick={() => handleClick(seat.name,seat.id)}
+                            onClick={() => handleClick(seat.name, seat.id)}
                             key={seat.id} data-test="seat"
                         >
                             {seat.name}
@@ -89,11 +91,11 @@ export default function SeatsPage(props) {
 
             <FormContainer>
                 Nome do Comprador:
-                <input placeholder="Digite seu nome..." value={props.name} onChange={event => props.setName(event.target.value)} data-test="client-name"  />
+                <input placeholder="Digite seu nome..." value={props.name} onChange={event => props.setName(event.target.value)} data-test="client-name" />
 
                 CPF do Comprador:
-                <input placeholder="Digite seu CPF..." value={props.cpf} onChange={event => props.setCpf(event.target.value)} data-test="client-cpf"/>
-                <Link to="/sucesso" data-test="book-seat-btn"><button onClick={() => send()}>Reservar Assento(s)</button></Link>
+                <input placeholder="Digite seu CPF..." value={props.cpf} onChange={event => props.setCpf(event.target.value)} data-test="client-cpf" />
+                <Disp><Link to="/sucesso" data-test="book-seat-btn"><button onClick={() => send()}>Reservar Assento(s)</button></Link></Disp>
 
             </FormContainer>
 
@@ -115,6 +117,8 @@ export default function SeatsPage(props) {
         </PageContainer>
     )
 }
+
+
 
 const PageContainer = styled.div`
     display: flex;
@@ -144,11 +148,23 @@ const FormContainer = styled.div`
     align-items: flex-start;
     margin: 20px 0;
     font-size: 18px;
-    button {
-        align-self: center;
-    }
+   
     input {
-        width: calc(100vw - 60px);
+        width: calc(100vw - 40px);
+        height:51px;
+        font-style: italic;
+        font-weight: 400;
+        font-size: 18px;
+        line-height: 21px;
+        display: flex;
+        color: #AFAFAF;
+        text-align: start;
+        box-sizing: border-box;
+        background: #FFFFFF;
+        border: 1px solid #D5D5D5;
+        border-radius: 3px;
+        padding-left:20px;
+        margin-bottom:10px
     }
 `
 const CaptionContainer = styled.div`
@@ -234,9 +250,11 @@ const FooterContainer = styled.div`
     font-size: 20px;
     position: fixed;
     bottom: 0;
+    left:0;
+    box-shadow:1px 1px 6px orange;
 
     div:nth-child(1) {
-        box-shadow: 0px 2px 4px 2px #0000001A;
+        box-shadow: 0px 2px 4px 2px orange;
         border-radius: 3px;
         display: flex;
         align-items: center;
@@ -261,4 +279,26 @@ const FooterContainer = styled.div`
             }
         }
     }
+`
+
+const Disp = styled.div`
+    width:100%;
+    display:flex;
+    justify-content:center;
+    button {
+        font-style: normal;
+        font-weight: 400;
+        font-size: 18px;
+        line-height: 21px;
+        text-align: center;
+        letter-spacing: 0.04em;
+        color: #FFFFFF;
+        width: 225px;
+        height: 42px;
+        background-color:#E8833A;
+        border: none;
+        justify-content:center;  
+        margin-top:20px;  
+    }
+
 `

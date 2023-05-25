@@ -3,8 +3,10 @@ import HomePage from "./pages/HomePage/HomePage"
 import SeatsPage from "./pages/SeatsPage/SeatsPage"
 import SessionsPage from "./pages/SessionsPage/SessionsPage"
 import SuccessPage from "./pages/SuccessPage/SuccessPage"
-import { BrowserRouter, Routes, Route, useParams } from "react-router-dom";
-import React, { useState } from "react"
+import { BrowserRouter , Routes, Route, useParams, useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react"
+import Header from "./components/Header"
+
 
 export default function App() {
     const [selectedid, setSelectedid] = useState();
@@ -17,11 +19,13 @@ export default function App() {
     const { idFilme } = useParams();
 
 
-
-
+  
+ 
     return (
         <BrowserRouter>
-            <NavContainer>CINEFLEX</NavContainer>
+            <NavContainer>
+                <Header />
+            </NavContainer>
             <Routes>
                 <Route path="/" element={<HomePage selectedid={selectedid} setSelectedid={setSelectedid} />} />
                 <Route path="/assentos/:idSessao" element={<SeatsPage setSelectedid={setSelectedid} selectedid={selectedid} sessiona={sessiona} setClicked={setClicked} clicked={clicked} setName={setName} name={name} setCpf={setCpf} cpf={cpf} setSeats={setSeats} seats={seats} idSessao={idSessao} />} />
@@ -43,9 +47,12 @@ const NavContainer = styled.div`
                 font-family: 'Roboto', sans-serif;
                 font-size: 34px;
                 position: fixed;
-                top: 0;
+                top: 0px;
+                left:0px;
                 a {
                     text-decoration: none;
                 color: #E8833A;
     }
+              
                 `
+

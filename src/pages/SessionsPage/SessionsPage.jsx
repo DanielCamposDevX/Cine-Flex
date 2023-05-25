@@ -1,7 +1,7 @@
 import styled from "styled-components"
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { Link,useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 export default function SessionsPage(props) {
     const [session, setSession] = useState([]);
@@ -31,11 +31,11 @@ export default function SessionsPage(props) {
             Selecione o horário
             <div>
                 {session.days && session.days.map((session) => (
-                    <SessionContainer key={session.id}  data-test="movie-day" >
+                    <SessionContainer key={session.id} data-test="movie-day" >
                         {session.weekday} - {session.date}
                         <ButtonsContainer>
                             {session.showtimes.map((sessiones) =>
-                            (<Link to={`/assentos/${sessiones.id}`} key={sessiones.id}  data-test="showtime">
+                            (<Link to={`/assentos/${sessiones.id}`} key={sessiones.id} data-test="showtime">
                                 <button onClick={() => handleClick(sessiones.id)} >
                                     {sessiones.name}
                                 </button>
@@ -87,6 +87,17 @@ const ButtonsContainer = styled.div`
     margin: 20px 0;
     button {
         margin-right: 20px;
+        background-color:#E8833A;
+        border-radius: 3px;
+        height: 43px;
+        width:83px;
+        border:none;
+        color:white;
+        font-style: normal;
+        font-weight: 400;
+        font-size: 18px;
+        line-height: 21px;
+        letter-spacing: 0.02em;
     }
     a {
         text-decoration: none;
@@ -102,9 +113,12 @@ const FooterContainer = styled.div`
     font-size: 20px;
     position: fixed;
     bottom: 0;
-
+    left: 0;
+    box-shadow:1px 1px 6px orange;
+    
     div:nth-child(1) {
-        box-shadow: 0px 2px 4px 2px #0000001A;
+        
+        box-shadow: 0px 2px 4px 2px orange;
         border-radius: 3px;
         display: flex;
         align-items: center;
@@ -117,16 +131,9 @@ const FooterContainer = styled.div`
             padding: 8px;
         }
     }
-
-    div:nth-child(2) {
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        p {
-            text-align: left;
-            &:nth-child(2) {
-                margin-top: 10px;
-            }
-        }
+    p{
+        margin-bottom: 35px;
     }
+
+   
 `

@@ -8,12 +8,12 @@ export default function SuccessPage(props) {
     const [data, setData] = useState([]);
 
     function handleClick() {
-    props.setSelectedid("");
-    props.setSessiona("");
-    props.setSeats("");
-    props.setClicked("");
-    props.setName("");
-    props.setCpf("");
+        props.setSelectedid("");
+        props.setSessiona("");
+        props.setSeats("");
+        props.setClicked("");
+        props.setName("");
+        props.setCpf("");
     }
 
 
@@ -78,7 +78,21 @@ const PageContainer = styled.div`
         text-decoration: none;
     }
     button {
-        margin-top: 50px;
+       
+        font-style: normal;
+        font-weight: 400;
+        font-size: 18px;
+        line-height: 21px;
+        text-align: center;
+        letter-spacing: 0.04em;
+        color: #FFFFFF;
+        width: 225px;
+        height: 42px;
+        background-color:#E8833A;
+        border: none;
+        justify-content:center;  
+        margin-top:20px;  
+   
     }
     h1 {
         font-family: 'Roboto';
@@ -98,7 +112,9 @@ const TextContainer = styled.div`
     flex-direction: column;
     align-items: flex-start;
     margin-top: 30px;
+    font-size:22px;
     strong {
+        font-size: 24px;
         font-weight: bold;
         margin-bottom: 10px;
     }

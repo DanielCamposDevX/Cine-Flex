@@ -5,6 +5,7 @@ import { Link, useParams } from "react-router-dom";
 
 export default function HomePage(props) {
     const [movies, setMovies] = React.useState([]);
+    
     function handleClick(id) {
         props.setSelectedid(id)
     }
@@ -25,7 +26,7 @@ export default function HomePage(props) {
             <ListContainer>
                 {movies.map((movies) => (
                     <Link key={movies.id} to={`/sessoes/${movies.id}`}  data-test="movie">
-                        <MovieContainer onClick={() => handleClick(movies.id)} >
+                        <MovieContainer onClick={() => handleClick(movies.id)} data-test="movie">
                             <img src={movies.posterURL} alt="poster" />
                         </MovieContainer>
                     </Link>
@@ -57,7 +58,7 @@ const ListContainer = styled.div`
 const MovieContainer = styled.div`
     width: 145px;
     height: 210px;
-    box-shadow: 0px 2px 4px 2px #0000001A;
+    box-shadow:1px 1px 5px orange;
     border-radius: 3px;
     display: flex;
     align-items: center;
