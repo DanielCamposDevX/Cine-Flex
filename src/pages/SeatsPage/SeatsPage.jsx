@@ -73,7 +73,7 @@ export default function SeatsPage(props) {
                             {seat.name}
                         </SeatItem>
                     ) : (
-                        <SeatItem2 key={seat.id}>{seat.name}</SeatItem2>
+                        <SeatItem2 key={seat.id}  data-test="seat">{seat.name}</SeatItem2>
                     )
                 ))
                 }
