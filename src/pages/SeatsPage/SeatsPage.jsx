@@ -1,11 +1,14 @@
 import { useState, useEffect } from "react";
 import styled from "styled-components"
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+
 
 export default function SeatsPage(props) {
+    const navigate = useNavigate();
 
     function send() {
+
         const send = {
             ids: props.seats,
             name: props.name,
@@ -15,6 +18,7 @@ export default function SeatsPage(props) {
         const promisse = axios.post('https://mock-api.driven.com.br/api/v8/cineflex/seats/book-many', send);
         promisse.then(() => {
             console.log("deu bom");
+            navigate("/sucesso");
         })
             .catch(() => {
                 console.log('Deu Ruim');
@@ -71,7 +75,9 @@ export default function SeatsPage(props) {
                     ) : (
                         <SeatItem2 key={seat.id}>{seat.name}</SeatItem2>
                     )
-                ))}
+                ))
+                }
+                
             </SeatsContainer>
 
             <CaptionContainer>
@@ -95,7 +101,14 @@ export default function SeatsPage(props) {
 
                 CPF do Comprador:
                 <input placeholder="Digite seu CPF..." value={props.cpf} onChange={event => props.setCpf(event.target.value)} data-test="client-cpf" />
-                <Disp><Link to="/sucesso" data-test="book-seat-btn"><button onClick={() => send()}>Reservar Assento(s)</button></Link></Disp>
+                <Disp>
+                    <button onClick={() => {
+                        if (props.clicked.length > 0 && props.name && props.cpf) {
+                            send();
+                        }
+                        else{alert('Preencha todos os campos')}
+                    }}>Reservar Assento(s)</button>
+                </Disp>
 
             </FormContainer>
 
