@@ -102,7 +102,7 @@ export default function SeatsPage(props) {
                 CPF do Comprador:
                 <input placeholder="Digite seu CPF..." value={props.cpf} onChange={event => props.setCpf(event.target.value)} data-test="client-cpf" />
                 <Disp>
-                    <button onClick={() => {
+                    <button data-test="book-seat-btn" onClick={() => {
                         if (props.clicked.length > 0 && props.name && props.cpf) {
                             send();
                         }
