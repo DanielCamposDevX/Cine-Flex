@@ -112,7 +112,7 @@ export default function SeatsPage(props) {
 
             </FormContainer>
 
-            <FooterContainer dat-test="footer">
+            <FooterContainer data-test="footer">
                 {seat && seat.movie && (
                     <>
                         <div>
