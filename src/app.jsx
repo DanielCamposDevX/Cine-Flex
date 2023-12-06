@@ -1,8 +1,8 @@
 import styled from "styled-components"
-import HomePage from "./pages/HomePage/home-page"
-import SeatsPage from "./pages/SeatsPage/seats-page"
-import SessionsPage from "./pages/SessionsPage/sessions-page"
-import SuccessPage from "./pages/SuccessPage/success-page"
+import HomePage from "./pages/homepage/home-page"
+import SeatsPage from "./pages/seatspage/seats-page"
+import SessionsPage from "./pages/sessionspage/sessions-page"
+import SuccessPage from "./pages/successpage/success-page"
 import { BrowserRouter, Routes, Route, useParams } from "react-router-dom";
 import React, { useState } from "react"
 import Header from "./components/header"
