@@ -1,29 +1,27 @@
 import { useState, useEffect } from "react";
 import styled from "styled-components"
 import axios from "axios";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 
 export default function SeatsPage(props) {
     const navigate = useNavigate();
 
     function send() {
-
         const send = {
             ids: props.seats,
             name: props.name,
             cpf: props.cpf
         };
         console.log(send);
-        const promisse = axios.post('https://mock-api.driven.com.br/api/v8/cineflex/seats/book-many', send);
-        promisse.then(() => {
-            console.log("deu bom");
-            navigate("/sucesso");
-        })
+        axios.post('https://mock-api.driven.com.br/api/v8/cineflex/seats/book-many', send)
+            .then(() => {
+                console.log("deu bom");
+                navigate("/sucesso");
+            })
             .catch(() => {
                 console.log('Deu Ruim');
             });
-
     }
 
     function handleClick(name, id) {
@@ -61,7 +59,6 @@ export default function SeatsPage(props) {
     return (
         <PageContainer>
             Selecione o(s) assento(s)
-
             <SeatsContainer>
                 {seat && seat.seats && seat.seats.map((seat) => (
                     seat.isAvailable ? (
@@ -73,11 +70,10 @@ export default function SeatsPage(props) {
                             {seat.name}
                         </SeatItem>
                     ) : (
-                        <SeatItem2 key={seat.id} onClick={()=> alert('Assento indisponível')}  data-test="seat">{seat.name}</SeatItem2>
+                        <SeatItem2 key={seat.id} onClick={() => alert('Assento indisponível')} data-test="seat">{seat.name}</SeatItem2>
                     )
                 ))
                 }
-                
             </SeatsContainer>
 
             <CaptionContainer>
@@ -106,10 +102,9 @@ export default function SeatsPage(props) {
                         if (props.clicked.length > 0 && props.name && props.cpf) {
                             send();
                         }
-                        else{alert('Preencha todos os campos')}
+                        else { alert('Preencha todos os campos') }
                     }}>Reservar Assento(s)</button>
                 </Disp>
-
             </FormContainer>
 
             <FooterContainer data-test="footer">
@@ -125,8 +120,6 @@ export default function SeatsPage(props) {
                     </>
                 )}
             </FooterContainer>
-
-
         </PageContainer>
     )
 }

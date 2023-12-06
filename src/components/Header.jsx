@@ -1,27 +1,27 @@
 import styled from "styled-components"
-import { BrowserRouter, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import arrow from "../assets/Arrow 21.svg"
 
 export default function Header() {
+
+
     const navigate = useNavigate();
 
-    function handleClick() {
-        navigate(-1);
-    }
 
     return (
-        <H>
+        <HeaderMain>
             {window.location.pathname !== "/" && (
-                <button onClick={() => handleClick() } data-test="go-home-header-btn" >
+                <button onClick={() => navigate(-1)} data-test="go-home-header-btn" >
                     <img src={arrow} alt="backs" />
                 </button>
             )}
             CINEFLEX
-        </H>
+        </HeaderMain>
     );
 }
 
-const H = styled.div`
+
+const HeaderMain = styled.div`
     position: relative;
     display: flex;
     justify-content: center;
