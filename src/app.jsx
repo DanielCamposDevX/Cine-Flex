@@ -9,7 +9,6 @@ import Header from "./components/header"
 
 
 export default function App() {
-    const [selectedid, setSelectedid] = useState();
     const [sessiona, setSessiona] = useState();
     const [seats, setSeats] = useState([]);
     const [clicked, setClicked] = useState([]);
@@ -25,10 +24,10 @@ export default function App() {
                 <Header />
             </NavContainer>
             <Routes>
-                <Route path="/" element={<HomePage selectedid={selectedid} setSelectedid={setSelectedid} />} />
-                <Route path="/assentos/:idSessao" element={<SeatsPage setSelectedid={setSelectedid} selectedid={selectedid} sessiona={sessiona} setClicked={setClicked} clicked={clicked} setName={setName} name={name} setCpf={setCpf} cpf={cpf} setSeats={setSeats} seats={seats} idSessao={idSessao} />} />
-                <Route path="/sessoes/:idFilme" element={<SessionsPage setSelectedid={setSelectedid} selectedid={selectedid} setSessiona={setSessiona} idFilme={idFilme} />} />
-                <Route path="/sucesso" element={<SuccessPage setSelectedid={setSelectedid} selectedid={selectedid} setSessiona={setSessiona} sessiona={sessiona} setClicked={setClicked} clicked={clicked} setName={setName} name={name} setCpf={setCpf} cpf={cpf} setSeats={setSeats} seats={seats} />} />
+                <Route path="/" element={<HomePage  />} />
+                <Route path="/assentos/:idSessao" element={<SeatsPage  sessiona={sessiona} setClicked={setClicked} clicked={clicked} setName={setName} name={name} setCpf={setCpf} cpf={cpf} setSeats={setSeats} seats={seats} idSessao={idSessao} />} />
+                <Route path="/sessoes/:movieId" element={<SessionsPage  setSessiona={setSessiona} idFilme={idFilme} />} />
+                <Route path="/sucesso" element={<SuccessPage  setSessiona={setSessiona} sessiona={sessiona} setClicked={setClicked} clicked={clicked} setName={setName} name={name} setCpf={setCpf} cpf={cpf} setSeats={setSeats} seats={seats} />} />
             </Routes>
         </BrowserRouter>
     )

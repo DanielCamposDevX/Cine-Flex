@@ -1,60 +1,50 @@
 import styled from "styled-components"
-import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import getSessions from "../../services/get-sessions";
 
 export default function SessionsPage(props) {
-    const [session, setSession] = useState([]);
+
+    const navigate = useNavigate();
+    const { movieId } = useParams();
+    const [sessions, setSessions] = useState([]);
+
 
     useEffect(() => {
-        if (props.selectedid) {
-            const promisse = axios.get('https://mock-api.driven.com.br/api/v8/cineflex/movies/' + props.selectedid + '/showtimes');
-            promisse.then((resposta) => {
-                setSession(resposta.data);
-            })
-                .catch(() => {
-                    console.log('Deu Ruim');
-                });
-        }
-    }, [props.selectedid]);
+        getSessions(movieId, setSessions)
+    }, []);
 
-    if (session.length === 0) {
-        return (<PageContainer>Carregando...</PageContainer>)
-    }
-
-    function handleClick(id) {
-        props.setSessiona(id);
-    }
 
     return (
-        <PageContainer>
-            Selecione o horário
-            <div>
-                {session.days && session.days.map((session) => (
-                    <SessionContainer key={session.id} data-test="movie-day" >
-                        {session.weekday} - {session.date}
-                        <ButtonsContainer>
-                            {session.showtimes.map((sessiones) =>
-                            (<Link to={`/assentos/${sessiones.id}`} key={sessiones.id} data-test="showtime">
-                                <button onClick={() => handleClick(sessiones.id)} >
-                                    {sessiones.name}
-                                </button>
-                            </Link>))}
-                        </ButtonsContainer>
-                    </SessionContainer>
-                ))}
-            </div>
-
-            <FooterContainer data-test="footer">
+        sessions.length === 0 ?
+            (<PageContainer>Carregando...</PageContainer>)
+            :
+            (<PageContainer>
+                Selecione o horário
                 <div>
-                    <img src={session.posterURL} alt="poster" />
+                    {sessions.days && sessions.days.map((session) => (
+                        <SessionContainer key={session.id} data-test="movie-day" >
+                            {session.weekday} - {session.date}
+                            <ButtonsContainer>
+                                {session.showtimes.map((sessionTime) =>
+                                (
+                                    <button onClick={() => navigate(`/assentos/${sessionTime.id}`)} >
+                                        {sessionTime.name}
+                                    </button>
+                                ))}
+                            </ButtonsContainer>
+                        </SessionContainer>
+                    ))}
                 </div>
-                <div>
-                    <p>{session.title}</p>
-                </div>
-            </FooterContainer>
-
-        </PageContainer>
+                <FooterContainer data-test="footer">
+                    <div>
+                        <img src={sessions.posterURL} alt="poster" />
+                    </div>
+                    <div>
+                        <p>{sessions.title}</p>
+                    </div>
+                </FooterContainer>
+            </PageContainer>)
     )
 }
 
@@ -98,6 +88,7 @@ const ButtonsContainer = styled.div`
         font-size: 18px;
         line-height: 21px;
         letter-spacing: 0.02em;
+        cursor: pointer;
     }
     a {
         text-decoration: none;

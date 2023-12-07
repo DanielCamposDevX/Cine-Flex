@@ -1,11 +1,12 @@
 import styled from "styled-components"
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import { getMovies } from "../../services/getMovies";
+import { Link, useNavigate } from "react-router-dom";
+import { getMovies } from "../../services/get-movies";
 
 export default function HomePage(props) {
     const [movies, setMovies] = useState([]);
 
+    const navigate = useNavigate();
 
     useEffect(() => {
         getMovies(setMovies)
@@ -21,11 +22,9 @@ export default function HomePage(props) {
                     Selecione o filme
                     <ListContainer>
                         {movies.map((movie) => (
-                            <Link key={movie.id} to={`/sessoes/${movie.id}`} data-test="movie">
-                                <MovieContainer onClick={() => props.setSelectedid(movie.id)} >
-                                    <img src={movie.posterURL} alt="poster" />
-                                </MovieContainer>
-                            </Link>
+                            <MovieContainer onClick={() => navigate(`/sessoes/${movie.id}`)} >
+                                <img src={movie.posterURL} alt="poster" />
+                            </MovieContainer>
                         ))}
                     </ListContainer>
                 </PageContainer>)
