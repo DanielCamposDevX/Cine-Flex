@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export async function getMovies(setMovies) {
+export default function getMovies(setMovies) {
     axios.get("https://mock-api.driven.com.br/api/v8/cineflex/movies")
         .then(response => {
             setMovies(response.data);

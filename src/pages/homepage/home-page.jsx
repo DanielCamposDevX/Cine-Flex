@@ -1,9 +1,9 @@
 import styled from "styled-components"
 import { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { getMovies } from "../../services/get-movies";
+import { useNavigate } from "react-router-dom";
+import getMovies from "../../services/api/get-movies";
 
-export default function HomePage(props) {
+export default function HomePage() {
     const [movies, setMovies] = useState([]);
 
     const navigate = useNavigate();

@@ -1,126 +1,105 @@
 import { useState, useEffect } from "react";
 import styled from "styled-components"
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import getSeats from "../../services/api/get-seats";
+import bookSeats from "../../services/api/book-seats";
+import handleSeatSelection from "../../services/seat-selection";
 
 
 export default function SeatsPage(props) {
+
+    const { sessionId } = useParams()
     const navigate = useNavigate();
+    const [session, setSession] = useState([]);
+    const [seatsId, setSeatsId] = useState([]);
 
     function send() {
-        const send = {
-            ids: props.seats,
-            name: props.name,
-            cpf: props.cpf
-        };
-        console.log(send);
-        axios.post('https://mock-api.driven.com.br/api/v8/cineflex/seats/book-many', send)
-            .then(() => {
-                console.log("deu bom");
-                navigate("/sucesso");
-            })
-            .catch(() => {
-                console.log('Deu Ruim');
-            });
+        bookSeats(seatsId, props.name, props.cpf, navigate);
     }
 
-    function handleClick(name, id) {
-        if (!props.clicked.includes(name)) {
-            const newClicked = [...props.clicked, name];
-            props.setClicked(newClicked);
-        }
-        else { console.log("já selecionada") }
-
-        if (!props.seats.includes(id)) {
-            const newSeats = [...props.seats, id];
-            props.setSeats(newSeats);
-        }
-        else { console.log("já selecionada") }
+    function handleSelection(name, id) {
+        handleSeatSelection(name, id, seatsId, setSeatsId, props.seats, props.setSeats);
     }
-
-    const [seat, setSeat] = useState([]);
 
     useEffect(() => {
-        if (props.sessiona) {
-            const promisse = axios.get('https://mock-api.driven.com.br/api/v8/cineflex/showtimes/' + props.sessiona + '/seats');
-            promisse.then((resposta) => {
-                setSeat(resposta.data);
-            })
-                .catch(() => {
-                    console.log('Deu Ruim');
-                });
-        }
-    }, [props.sessiona]);
+        getSeats(sessionId, setSession)
+    }, []);
 
-    if (seat.length === 0) {
-        return (<PageContainer>Carregando...</PageContainer>)
-    }
 
     return (
-        <PageContainer>
-            Selecione o(s) assento(s)
-            <SeatsContainer>
-                {seat && seat.seats && seat.seats.map((seat) => (
-                    seat.isAvailable ? (
-                        <SeatItem
-                            appearance={props.clicked.includes(seat.name) ? "green" : ""}
-                            onClick={() => handleClick(seat.name, seat.id)}
-                            key={seat.id} data-test="seat"
-                        >
-                            {seat.name}
-                        </SeatItem>
-                    ) : (
-                        <SeatItem2 key={seat.id} onClick={() => alert('Assento indisponível')} data-test="seat">{seat.name}</SeatItem2>
-                    )
-                ))
-                }
-            </SeatsContainer>
+        session.length === 0 ?
+            (<PageContainer>Carregando...</PageContainer>)
+            :
+            (<PageContainer>
+                Selecione o(s) assento(s)
+                <SeatsContainer>
+                    {session && session.seats && session.seats.map((seat) => (
+                        seat.isAvailable ? (
+                            <SeatItem
+                                appearance={seatsId.includes(seat.id) ? "green" : ""}
+                                onClick={() => handleSelection(seat.name, seat.id)}
+                                key={seat.id} data-test="seat"
+                            >
+                                {seat.name}
+                            </SeatItem>
+                        ) : (
+                            <SeatItem2
+                                key={seat.id}
+                                onClick={() => alert('Assento indisponível')}
+                                data-test="seat"
+                            >
+                                {seat.name}
+                            </SeatItem2>
+                        )
+                    ))
+                    }
+                </SeatsContainer>
 
-            <CaptionContainer>
-                <CaptionItem>
-                    <CaptionCircle />
-                    Selecionado
-                </CaptionItem>
-                <CaptionItem>
-                    <CaptionCircle2 />
-                    Disponível
-                </CaptionItem>
-                <CaptionItem>
-                    <CaptionCircle3 />
-                    Indisponível
-                </CaptionItem>
-            </CaptionContainer>
+                <CaptionContainer>
+                    <CaptionItem>
+                        <CaptionCircle />
+                        Selecionado
+                    </CaptionItem>
+                    <CaptionItem>
+                        <CaptionCircle2 />
+                        Disponível
+                    </CaptionItem>
+                    <CaptionItem>
+                        <CaptionCircle3 />
+                        Indisponível
+                    </CaptionItem>
+                </CaptionContainer>
 
-            <FormContainer>
-                Nome do Comprador:
-                <input placeholder="Digite seu nome..." value={props.name} onChange={event => props.setName(event.target.value)} data-test="client-name" />
+                <FormContainer>
+                    Nome do Comprador:
+                    <input placeholder="Digite seu nome..." value={props.name} onChange={event => props.setName(event.target.value)} data-test="client-name" />
 
-                CPF do Comprador:
-                <input placeholder="Digite seu CPF..." value={props.cpf} onChange={event => props.setCpf(event.target.value)} data-test="client-cpf" />
-                <Disp>
-                    <button data-test="book-seat-btn" onClick={() => {
-                        if (props.clicked.length > 0 && props.name && props.cpf) {
-                            send();
-                        }
-                        else { alert('Preencha todos os campos') }
-                    }}>Reservar Assento(s)</button>
-                </Disp>
-            </FormContainer>
+                    CPF do Comprador:
+                    <input placeholder="Digite seu CPF..." value={props.cpf} onChange={event => props.setCpf(event.target.value)} data-test="client-cpf" />
+                    <Disp>
+                        <button data-test="book-seat-btn" onClick={() => {
+                            if (seatsId.length > 0 && props.name && props.cpf) {
+                                send();
+                            }
+                            else { alert('Preencha todos os campos') }
+                        }}>Reservar Assento(s)</button>
+                    </Disp>
+                </FormContainer>
 
-            <FooterContainer data-test="footer">
-                {seat && seat.movie && (
-                    <>
-                        <div>
-                            <img src={seat.movie.posterURL} alt="poster" />
-                        </div>
-                        <div>
-                            <p>{seat.movie.title}</p>
-                            <p>{seat.day.weekday} - {seat.name}</p>
-                        </div>
-                    </>
-                )}
-            </FooterContainer>
-        </PageContainer>
+                <FooterContainer data-test="footer">
+                    {session && session.movie && (
+                        <>
+                            <div>
+                                <img src={session.movie.posterURL} alt="poster" />
+                            </div>
+                            <div>
+                                <p>{session.movie.title}</p>
+                                <p>{session.day.weekday} - {session.name}</p>
+                            </div>
+                        </>
+                    )}
+                </FooterContainer>
+            </PageContainer>)
     )
 }
 

@@ -6,6 +6,6 @@ export default function getSessions(movieId, setSessions) {
             setSessions(resposta.data);
         })
         .catch(() => {
-            console.log('Deu Ruim');
+            alert("Erro ao buscar as sessões!")
         });
 }

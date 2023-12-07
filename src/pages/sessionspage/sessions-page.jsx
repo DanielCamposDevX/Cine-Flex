@@ -1,28 +1,28 @@
 import styled from "styled-components"
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import getSessions from "../../services/get-sessions";
+import getSessions from "../../services/api/get-sessions";
 
-export default function SessionsPage(props) {
+export default function SessionsPage() {
 
     const navigate = useNavigate();
     const { movieId } = useParams();
-    const [sessions, setSessions] = useState([]);
+    const [movie, setMovie] = useState([]);
 
 
     useEffect(() => {
-        getSessions(movieId, setSessions)
+        getSessions(movieId, setMovie)
     }, []);
 
 
     return (
-        sessions.length === 0 ?
+        movie.length === 0 ?
             (<PageContainer>Carregando...</PageContainer>)
             :
             (<PageContainer>
                 Selecione o horário
                 <div>
-                    {sessions.days && sessions.days.map((session) => (
+                    {movie.days && movie.days.map((session) => (
                         <SessionContainer key={session.id} data-test="movie-day" >
                             {session.weekday} - {session.date}
                             <ButtonsContainer>
@@ -38,10 +38,10 @@ export default function SessionsPage(props) {
                 </div>
                 <FooterContainer data-test="footer">
                     <div>
-                        <img src={sessions.posterURL} alt="poster" />
+                        <img src={movie.posterURL} alt="poster" />
                     </div>
                     <div>
-                        <p>{sessions.title}</p>
+                        <p>{movie.title}</p>
                     </div>
                 </FooterContainer>
             </PageContainer>)
