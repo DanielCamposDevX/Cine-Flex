@@ -1,40 +1,35 @@
 import styled from "styled-components"
-import axios from "axios";
-import React, { useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { getMovies } from "../../services/getMovies";
 
 export default function HomePage(props) {
-    const [movies, setMovies] = React.useState([]);
-
-    function handleClick(id) {
-        props.setSelectedid(id)
-    }
+    const [movies, setMovies] = useState([]);
 
 
     useEffect(() => {
-        const requisicao = axios.get("https://mock-api.driven.com.br/api/v8/cineflex/movies");
-        requisicao.then(response => { setMovies(response.data); })
+        getMovies(setMovies)
     }, [])
 
 
-    if (movies.length === 0) {
-        return (<PageContainer>Carregando...</PageContainer>)
-    }
-
-
     return (
-        <PageContainer>
-            Selecione o filme
-            <ListContainer>
-                {movies.map((movies) => (
-                    <Link key={movies.id} to={`/sessoes/${movies.id}`} data-test="movie">
-                        <MovieContainer onClick={() => handleClick(movies.id)} >
-                            <img src={movies.posterURL} alt="poster" />
-                        </MovieContainer>
-                    </Link>
-                ))}
-            </ListContainer>
-        </PageContainer>
+        (
+            movies.length === 0 ?
+                (<PageContainer>Carregando...</PageContainer>)
+                :
+                (<PageContainer>
+                    Selecione o filme
+                    <ListContainer>
+                        {movies.map((movie) => (
+                            <Link key={movie.id} to={`/sessoes/${movie.id}`} data-test="movie">
+                                <MovieContainer onClick={() => props.setSelectedid(movie.id)} >
+                                    <img src={movie.posterURL} alt="poster" />
+                                </MovieContainer>
+                            </Link>
+                        ))}
+                    </ListContainer>
+                </PageContainer>)
+        )
     )
 }
 
