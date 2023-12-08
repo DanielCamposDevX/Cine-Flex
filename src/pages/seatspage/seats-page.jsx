@@ -4,6 +4,8 @@ import { useNavigate, useParams } from "react-router-dom";
 import getSeats from "../../services/api/get-seats";
 import bookSeats from "../../services/api/book-seats";
 import handleSeatSelection from "../../services/seat-selection";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 export default function SeatsPage(props) {
@@ -46,7 +48,7 @@ export default function SeatsPage(props) {
                         ) : (
                             <SeatItem2
                                 key={seat.id}
-                                onClick={() => alert('Assento indisponível')}
+                                onClick={() => toast.error('Assento indisponível')}
                                 data-test="seat"
                             >
                                 {seat.name}
@@ -82,7 +84,7 @@ export default function SeatsPage(props) {
                             if (seatsId.length > 0 && props.name && props.cpf) {
                                 send();
                             }
-                            else { alert('Preencha todos os campos') }
+                            else { toast.error('Preencha todos os campos') }
                         }}>Reservar Assento(s)</button>
                     </Disp>
                 </FormContainer>
