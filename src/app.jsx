@@ -28,6 +28,7 @@ export default function App() {
             hideProgressBar={false}
             pauseOnHover
             closeOnClick
+            limit={1}
             />
             <Routes>
                 <Route
