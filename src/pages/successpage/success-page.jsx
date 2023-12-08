@@ -23,7 +23,7 @@ export default function SuccessPage(props) {
     return (
 
         data.length === 0 ?
-            (<PageContainer>Carregando...</PageContainer>)
+            (<PageContainer><h1>Carregando...</h1></PageContainer>)
             :
             (<>
                 {data.movie ? (
@@ -66,6 +66,7 @@ const PageContainer = styled.div`
     margin: 30px 20px;
     padding-bottom: 120px;
     padding-top: 70px;
+    gap: 10px;
     a {
         text-decoration: none;
     }
@@ -77,12 +78,13 @@ const PageContainer = styled.div`
         line-height: 21px;
         text-align: center;
         letter-spacing: 0.04em;
-        color: #FFFFFF;
+        color: orange;
         width: 225px;
         height: 42px;
-        background-color:#E8833A;
-        border: none;
-        justify-content:center;  
+        border-radius: 8px;
+        background-color: black;
+        border: 1px solid orange;
+        justify-content: center;  
         margin-top:20px;  
    
     }
@@ -95,7 +97,7 @@ const PageContainer = styled.div`
         display: flex;
         align-items: center;
         text-align: center;
-        color: #247A6B;
+        color: orange;
     }
 `
 const TextContainer = styled.div`
@@ -103,8 +105,10 @@ const TextContainer = styled.div`
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+    gap: 5px;
     margin-top: 30px;
     font-size:22px;
+    color: white;
     strong {
         font-size: 24px;
         font-weight: bold;

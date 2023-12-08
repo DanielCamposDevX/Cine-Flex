@@ -17,18 +17,18 @@ export default function SessionsPage() {
 
     return (
         movie.length === 0 ?
-            (<PageContainer>Carregando...</PageContainer>)
+            (<PageContainer><h1>Carregando...</h1></PageContainer>)
             :
             (<PageContainer>
-                Selecione o horário
+                <h1>Selecione o horário</h1>
                 <div>
                     {movie.days && movie.days.map((session) => (
                         <SessionContainer key={session.id} data-test="movie-day" >
-                            {session.weekday} - {session.date}
+                            <h1>{session.weekday} - {session.date}</h1>
                             <ButtonsContainer>
                                 {session.showtimes.map((sessionTime) =>
                                 (
-                                    <button onClick={() => navigate(`/assentos/${sessionTime.id}`)} >
+                                    <button key={sessionTime.id} onClick={() => navigate(`/assentos/${sessionTime.id}`)} >
                                         {sessionTime.name}
                                     </button>
                                 ))}
@@ -61,15 +61,24 @@ const PageContainer = styled.div`
     div {
         margin-top: 20px;
     }
+    h1{
+        color: orange;
+        font-family: 'Roboto', sans-serif;
+        font-size: 24px;
+        text-align: center;
+    }
 `
 const SessionContainer = styled.div`
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
-    font-family: 'Roboto';
-    font-size: 20px;
-    color: #293845;
+    align-items: flex-start;    
     padding: 0 20px;
+    h1{
+        color: orange;
+        font-family: 'Roboto', sans-serif;
+        font-size: 20px;
+        text-align: center;
+    }
 `
 const ButtonsContainer = styled.div`
     display: flex;
@@ -77,12 +86,12 @@ const ButtonsContainer = styled.div`
     margin: 20px 0;
     button {
         margin-right: 20px;
-        background-color:#E8833A;
+        background-color: black;
         border-radius: 3px;
         height: 43px;
         width:83px;
-        border:none;
-        color:white;
+        border:1px solid orange;
+        color: orange;
         font-style: normal;
         font-weight: 400;
         font-size: 18px;
@@ -97,14 +106,14 @@ const ButtonsContainer = styled.div`
 const FooterContainer = styled.div`
     width: 100%;
     height: 120px;
-    background-color: #C3CFD9;
+    background-color: #292929e6;
     display: flex;
     flex-direction: row;
     align-items: center;
     font-size: 20px;
     position: fixed;
     bottom: 0;
-    left: 0;
+    left: 0;    
     box-shadow:1px 1px 6px orange;
     
     div:nth-child(1) {
@@ -114,7 +123,7 @@ const FooterContainer = styled.div`
         display: flex;
         align-items: center;
         justify-content: center;
-        background-color: white;
+        background-color: black;
         margin: 12px;
         img {
             width: 50px;
@@ -124,6 +133,7 @@ const FooterContainer = styled.div`
     }
     p{
         margin-bottom: 35px;
+        color: orange;
     }
 
    

@@ -1,4 +1,4 @@
-import styled from "styled-components"
+import styled, { keyframes } from "styled-components"
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import getMovies from "../../services/api/get-movies";
@@ -19,7 +19,7 @@ export default function HomePage() {
                 (<PageContainer>Carregando...</PageContainer>)
                 :
                 (<PageContainer>
-                    Selecione o filme
+                    <h1>Selecione o filme</h1>
                     <ListContainer>
                         {movies.map((movie) => (
                             <MovieContainer onClick={() => navigate(`/sessoes/${movie.id}`)} >
@@ -32,35 +32,68 @@ export default function HomePage() {
     )
 }
 
+const fallAnimation = keyframes`
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+`;
+
 const PageContainer = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    font-family: 'Roboto';
-    font-size: 24px;
-    text-align: center;
+    justify-content: center;
+    background-color: #222222;
     color: #293845;
     margin-top: 30px;
     padding-top: 70px;
+    h1{
+        color: rgb(255, 165, 0);
+        font-family: 'Roboto', sans-serif;
+        font-size: 24px;
+        text-align: center;
+    }
 `
 const ListContainer = styled.div`
-    width: 330px;
+    width: 90%;
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
+    justify-content: center;
+    gap: 30px;
     padding: 10px;
+    margin-top: 40px;
 `
-const MovieContainer = styled.div`
+
+
+
+
+const MovieContainer = styled.button`
     width: 145px;
     height: 210px;
     box-shadow:1px 1px 5px orange;
-    border-radius: 3px;
+    border-radius: 8px;
+    padding: 10px;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 10px;
+    background-color: #3a301b;
+    border: 1px solid orange;
+    cursor: pointer;
+    transition: transform 300ms ease-out;
+    &:hover{
+        transform: translate(0px, 0px) scale(1.04, 1.04);
+    };
+    &:focus{
+        transform: translate(0px, 0px) scale(1.04, 1.04);
+    };
     img {
         width: 130px;
         height: 190px;
+        border-radius: 8px;
     }
+
 `

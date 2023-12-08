@@ -29,10 +29,10 @@ export default function SeatsPage(props) {
 
     return (
         session.length === 0 ?
-            (<PageContainer>Carregando...</PageContainer>)
+            (<PageContainer><h1>Carregando...</h1></PageContainer>)
             :
             (<PageContainer>
-                Selecione o(s) assento(s)
+                <h1>Selecione o(s) assento(s)</h1>
                 <SeatsContainer>
                     {session && session.seats && session.seats.map((seat) => (
                         seat.isAvailable ? (
@@ -59,24 +59,24 @@ export default function SeatsPage(props) {
                 <CaptionContainer>
                     <CaptionItem>
                         <CaptionCircle />
-                        Selecionado
+                        <h1>Selecionado</h1>
                     </CaptionItem>
                     <CaptionItem>
                         <CaptionCircle2 />
-                        Disponível
+                        <h1>Disponível</h1>
                     </CaptionItem>
                     <CaptionItem>
                         <CaptionCircle3 />
-                        Indisponível
+                        <h1>Indisponível</h1>
                     </CaptionItem>
                 </CaptionContainer>
 
                 <FormContainer>
-                    Nome do Comprador:
-                    <input placeholder="Digite seu nome..." value={props.name} onChange={event => props.setName(event.target.value)} data-test="client-name" />
+                    <h1>Nome do Comprador:</h1>
+                    <input type="text" placeholder="Digite seu nome..." value={props.name} onChange={e => props.setName(e.target.value)} data-test="client-name" />
 
-                    CPF do Comprador:
-                    <input placeholder="Digite seu CPF..." value={props.cpf} onChange={event => props.setCpf(event.target.value)} data-test="client-cpf" />
+                    <h1>CPF do Comprador:</h1>
+                    <input type="text" placeholder="Digite seu CPF..." value={props.cpf} onChange={e => props.setCpf(e.target.value)} data-test="client-cpf" />
                     <Disp>
                         <button data-test="book-seat-btn" onClick={() => {
                             if (seatsId.length > 0 && props.name && props.cpf) {
@@ -110,13 +110,16 @@ const PageContainer = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    font-family: 'Roboto';
-    font-size: 24px;
-    text-align: center;
     color: #293845;
     margin-top: 30px;
     padding-bottom: 120px;
     padding-top: 70px;
+    h1{
+        color: rgb(255, 165, 0);
+        font-family: 'Roboto', sans-serif;
+        font-size: 24px;
+        text-align: center;
+    }
 `
 const SeatsContainer = styled.div`
     width: 330px;
@@ -133,7 +136,12 @@ const FormContainer = styled.div`
     flex-direction: column;
     align-items: flex-start;
     margin: 20px 0;
-    font-size: 18px;
+    h1{
+        color: rgb(255, 165, 0);
+        font-family: 'Roboto', sans-serif;
+        font-size: 18px;
+        text-align: center;
+    }
    
     input {
         width: calc(100vw - 40px);
@@ -146,8 +154,8 @@ const FormContainer = styled.div`
         color: #AFAFAF;
         text-align: start;
         box-sizing: border-box;
-        background: #FFFFFF;
-        border: 1px solid #D5D5D5;
+        border: 1px solid orange;
+        background: #383838;
         border-radius: 3px;
         padding-left:20px;
         margin-bottom:10px
@@ -173,7 +181,7 @@ const CaptionCircle = styled.div`
 `
 const CaptionCircle2 = styled.div`
     border: 1px solid #7B8B99;         
-    background-color: #C3CFD9;    
+    background-color: #ffffff;    
     height: 25px;
     width: 25px;
     border-radius: 25px;
@@ -183,8 +191,8 @@ const CaptionCircle2 = styled.div`
     margin: 5px 3px;
 `
 const CaptionCircle3 = styled.div`
-    border: 1px solid #F7C52B;         
-    background-color: #FBE192;   
+    border: 1px solid #f72b2b;
+    background-color:#f54e00;    
     height: 25px;
     width: 25px;
     border-radius: 25px;
@@ -198,10 +206,16 @@ const CaptionItem = styled.div`
     flex-direction: column;
     align-items: center;
     font-size: 12px;
+    h1{
+        color: rgb(255, 165, 0);
+        font-family: 'Roboto', sans-serif;
+        font-size: 12px;
+        text-align: center;
+    }
 `
 const SeatItem = styled.div`
-    border: 1px solid ${({ appearance }) => appearance === 'green' ? '#0E7D71' : '#7B8B99'};         
-    background-color: ${({ appearance }) => appearance === 'green' ? '#1AAE9E' : '#C3CFD9'};;   
+    border: 1px solid ${({ appearance }) => appearance === 'green' ? '#29cf08' : '#ff8800'};         
+    background-color: ${({ appearance }) => appearance === 'green' ? '#57e605' : '#ffffff'};;   
     height: 25px;
     width: 25px;
     border-radius: 25px;
@@ -214,8 +228,8 @@ const SeatItem = styled.div`
     
 `
 const SeatItem2 = styled.div`
-    border: 1px solid #F7C52B;         // Essa cor deve mudar
-    background-color:#FBE192;    // Essa cor deve mudar
+    border: 1px solid #f72b2b;         // Essa cor deve mudar
+    background-color:#f54e00;    // Essa cor deve mudar
     height: 25px;
     width: 25px;
     border-radius: 25px;
@@ -229,7 +243,8 @@ const SeatItem2 = styled.div`
 const FooterContainer = styled.div`
     width: 100%;
     height: 120px;
-    background-color: #C3CFD9;
+    background-color: #292929e6;
+    color: orange;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -245,7 +260,7 @@ const FooterContainer = styled.div`
         display: flex;
         align-items: center;
         justify-content: center;
-        background-color: white;
+        background-color: black;
         margin: 12px;
         img {
             width: 50px;
@@ -278,11 +293,12 @@ const Disp = styled.div`
         line-height: 21px;
         text-align: center;
         letter-spacing: 0.04em;
-        color: #FFFFFF;
+        color: orange;
+        border-radius: 8px;
         width: 225px;
         height: 42px;
-        background-color:#E8833A;
-        border: none;
+        background-color: black;
+        border: 1px solid orange;
         justify-content:center;  
         margin-top:20px;  
     }

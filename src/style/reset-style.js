@@ -28,6 +28,22 @@ const ResetStyle = createGlobalStyle`
 	}
 	body {
 		line-height: 1;
+		background-color: #222222;
+		scrollbar-width: thin;
+    	scrollbar-color: #f06000 #ffffff;
+		/* Chrome, Edge, and Safari */
+		::-webkit-scrollbar {
+			width: 3px;
+		}
+
+		::-webkit-scrollbar-track {
+			background: transparent;
+		}
+
+		::-webkit-scrollbar-thumb {
+			background-color: rgb(255, 165, 0);
+			border-radius: 10px;
+		}
 	}
 	ol, ul {
 		list-style: none;
