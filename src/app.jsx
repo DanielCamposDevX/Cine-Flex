@@ -9,7 +9,7 @@ import Header from "./components/header"
 
 
 export default function App() {
-    const [sessiona, setSessiona] = useState();
+    const [session, setSession] = useState();
     const [seats, setSeats] = useState([]);
     const [name, setName] = useState();
     const [cpf, setCpf] = useState();
@@ -22,9 +22,9 @@ export default function App() {
             </NavContainer>
             <Routes>
                 <Route path="/" element={<HomePage />} />
-                <Route path="/assentos/:sessionId" element={<SeatsPage setSeats={setSeats} seats={seats} setName={setName} name={name} setCpf={setCpf} cpf={cpf}  />} />
+                <Route path="/assentos/:sessionId" element={<SeatsPage setSeats={setSeats} seats={seats} setName={setName} name={name} setCpf={setCpf} cpf={cpf} setSession={setSession} />} />
                 <Route path="/sessoes/:movieId" element={<SessionsPage />} />
-                <Route path="/sucesso" element={<SuccessPage setSessiona={setSessiona} sessiona={sessiona} setName={setName} name={name} setCpf={setCpf} cpf={cpf} setSeats={setSeats} seats={seats} />} />
+                <Route path="/sucesso" element={<SuccessPage setSession={setSession} session={session} setName={setName} name={name} setCpf={setCpf} cpf={cpf} setSeats={setSeats} seats={seats} />} />
             </Routes>
         </BrowserRouter>
     )

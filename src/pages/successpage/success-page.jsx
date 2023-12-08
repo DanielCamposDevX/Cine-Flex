@@ -1,67 +1,59 @@
 import styled from "styled-components"
-import axios from "axios";
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import getBooks from "../../services/api/get-books";
 
 export default function SuccessPage(props) {
 
     const [data, setData] = useState([]);
+    const navigate = useNavigate();
 
     function handleClick() {
-        props.setSelectedid("");
-        props.setSessiona("");
-        props.setSeats("");
-        props.setClicked("");
         props.setName("");
         props.setCpf("");
+        props.setSession(null);
+        navigate("/")
     }
 
 
     useEffect(() => {
-        if (props.sessiona) {
-            const promisse = axios.get('https://mock-api.driven.com.br/api/v8/cineflex/showtimes/' + props.sessiona + '/seats');
-            promisse.then((resposta) => {
-                setData(resposta.data);
-            })
-                .catch(() => {
-                    console.log('Deu Ruim');
-                });
-        }
-    }, [props.sessiona]);
-
-    if (data.length === 0) {
-        return (<PageContainer>Carregando...</PageContainer>)
-    }
+        getBooks(props.session, setData, navigate);
+    }, []);
 
     return (
-        <>
-            {data.movie ? (
-                <PageContainer>
-                    <h1>Pedido feito <br /> com sucesso!</h1>
 
-                    <TextContainer data-test="movie-info">
-                        <strong><p>Filme e sessão</p></strong>
-                        <p>{data.movie.title}</p>
-                        <p>{data.day.date} - {data.name}</p>
-                    </TextContainer>
+        data.length === 0 ?
+            (<PageContainer>Carregando...</PageContainer>)
+            :
+            (<>
+                {data.movie ? (
+                    <PageContainer>
+                        <h1>Pedido feito <br /> com sucesso!</h1>
 
-                    <TextContainer data-test="seats-info">
-                        <strong><p>Ingressos</p></strong>
-                        {props.clicked.map((seat, index) => (
-                            <p key={index}>Assento {seat}</p>
+                        <TextContainer data-test="movie-info">
+                            <strong><p>Filme e sessão</p></strong>
+                            <p>{data.movie.title}</p>
+                            <p>{data.day.date} - {data.name}</p>
+                        </TextContainer>
 
-                        ))}
-                    </TextContainer>
+                        <TextContainer data-test="seats-info">
+                            <strong><p>Ingressos</p></strong>
+                            {props.seats.map((seat, index) => (
+                                <p key={index}>Assento {seat}</p>
 
-                    <TextContainer data-test="client-info">
-                        <strong><p>Comprador</p></strong>
-                        <p>Nome: {props.name}</p>
-                        <p>CPF: {props.cpf}</p>
-                    </TextContainer>
+                            ))}
+                        </TextContainer>
 
-                    <Link to="/" data-test="go-home-btn"><button onClick={() => handleClick()}>Voltar para Home</button></Link>
-                </PageContainer>) : null}
-        </>)
+                        <TextContainer data-test="client-info">
+                            <strong><p>Comprador</p></strong>
+                            <p>Nome: {props.name}</p>
+                            <p>CPF: {props.cpf}</p>
+                        </TextContainer>
+                        <button data-test="go-home-btn" onClick={() => handleClick()}>
+                            Voltar para Home
+                        </button>
+                    </PageContainer>) : null}
+            </>))
 }
 
 const PageContainer = styled.div`

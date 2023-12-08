@@ -19,6 +19,7 @@ export default function SeatsPage(props) {
 
     function handleSelection(name, id) {
         handleSeatSelection(name, id, seatsId, setSeatsId, props.seats, props.setSeats);
+        props.setSession(sessionId)
     }
 
     useEffect(() => {
