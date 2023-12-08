@@ -22,7 +22,7 @@ export default function HomePage() {
                     <h1>Selecione o filme</h1>
                     <ListContainer>
                         {movies.map((movie) => (
-                            <MovieContainer onClick={() => navigate(`/sessoes/${movie.id}`)} >
+                            <MovieContainer key={movie.id} onClick={() => navigate(`/sessoes/${movie.id}`)} >
                                 <img src={movie.posterURL} alt="poster" />
                             </MovieContainer>
                         ))}

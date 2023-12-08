@@ -7,6 +7,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import React, { useState } from "react"
 import Header from "./components/header"
 import ResetStyle from "./style/reset-style"
+import { ToastContainer } from "react-toastify"
 
 
 
@@ -21,6 +22,13 @@ export default function App() {
         <BrowserRouter>
             <ResetStyle />
             <Header />
+            <StyledToast
+            position="top-center"
+            autoClose={5000}
+            hideProgressBar={false}
+            pauseOnHover
+            closeOnClick
+            />
             <Routes>
                 <Route
                     path="/"
@@ -75,4 +83,29 @@ const TransitionWrapper = styled.div`
   width: 100%;
   opacity: ${(props) => (props.isEntering ? 1 : 0)};
   animation: ${(props) => (props.isEntering ? enterFromLeft : "none")} 0.9s ease-in-out;
+`;
+
+const StyledToast = styled(ToastContainer)`
+.Toastify__toast-container {
+    margin-top: 10vh;
+}
+
+.Toastify__toast--success {
+    background-color: black;
+    color: orange;
+    font-family: 'Roboto', sans-serif;
+    font-weight: bold;
+    margin-top: 10vh;
+}
+
+.Toastify__toast--error {
+    background-color: black;
+    color: orange;
+    font-family: 'Roboto', sans-serif;
+    font-weight: bold;
+    margin-top: 10vh;
+}
+.Toastify__progress-bar {
+    background-color: orange;
+  }
 `;

@@ -1,4 +1,6 @@
 import axios from "axios";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function getMovies(setMovies) {
     axios.get("https://mock-api.driven.com.br/api/v8/cineflex/movies")
@@ -6,6 +8,6 @@ export default function getMovies(setMovies) {
             setMovies(response.data);
         })
         .catch(() => {
-            alert("Erro ao buscar os filmes!")
+            toast.error("Erro ao buscar os filmes!")
         })
 }

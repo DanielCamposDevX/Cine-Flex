@@ -1,4 +1,6 @@
 import axios from "axios";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function getSessions(movieId, setSessions) {
     axios.get(`https://mock-api.driven.com.br/api/v8/cineflex/movies/${movieId}/showtimes`)
@@ -6,6 +8,6 @@ export default function getSessions(movieId, setSessions) {
             setSessions(resposta.data);
         })
         .catch(() => {
-            alert("Erro ao buscar as sessões!")
+            toast.error("Erro ao buscar as sessões!")
         });
 }

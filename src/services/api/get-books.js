@@ -1,4 +1,6 @@
 import axios from "axios";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function getBooks(sessionId, setData,navigate) {
     axios.get(`https://mock-api.driven.com.br/api/v8/cineflex/showtimes/${sessionId}/seats`)
@@ -6,7 +8,7 @@ export default function getBooks(sessionId, setData,navigate) {
             setData(resposta.data);
         })
         .catch(() => {
-            alert('Erro ao buscar a sessão!');
+            toast.error('Erro ao buscar a sessão!');
             navigate("/")
         });
 }
